@@ -1,0 +1,121 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Fundaciones </title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="SitePoint">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyAcDvROWLQYN-hAd92Qx54SIlCwd2jIJDw&sensor=false&v=3.exp"> </script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>  
+  
+  <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
+  <script src="js/puntos.js"></script>
+  <script src="js/main.js"></script>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+</head>
+
+
+<header>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Dropdown
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" href="#">Disabled</a>
+        </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+    </nav>
+</header>
+
+<body>
+    
+        <div id="wrapper">
+            <div class="places-select">
+                <div class="places-content">
+                    <div class="places-showhide"><a href="#!" onclick="$('.places-list').toggle();">Selecciona localidad</a></div>
+                    <div class="places-list" style="display:block;"></div>
+                    <div class="places-showhide-bottom">&nbsp;</div>
+                </div>
+            </div>
+            <div id="content" style="margin-bottom:5px">
+                <div id="map" class="banner-item" style="width:100%; height:600px;"></div>
+            </div>	
+            <!-- End Content --> 
+            <div id="push">&nbsp;</div>
+        </div>
+            <!--End wrapper--> 
+    <div class="container">
+        <form  method="post" id="formcreateespacio" class="p-3 p-md-5">
+            <div class="row">
+                <div class="col col-12 col-md-6">
+                    <div class="form-group">
+                        <label for="form-name">Nombre:</label>
+                        <input type="text" class="form-control" id="name" name="name_offer" placeholder="¿Cuál es tu nombre?">
+                    </div>
+                    <div class="form-group">
+                        <label for="form-teléfono">Teléfono:</label>
+                        <input type="number" class="form-control" id="form-teléfono" name="phone_offer" placeholder="¿A dónde nos podemos comunicar?">
+                    </div>
+                    <div class="form-group">
+                        <label for="form-email">Correo:</label>
+                        <input type="email" class="form-control" id="form-email" name="email_offer" placeholder="Dirección de correo electrónico">
+                    </div>
+                    <div class="form-group other-offer d-none">
+                        <label for="form-other-space">Dirección</label>
+                        <input type="text" class="form-control" id="form-other-space" name="other_offer" placeholder="¿Cuál otro espacio tienes?">
+                    </div>
+                </div>
+                <div class="col col-12 col-md-6">
+                    <div class="form-group">
+                        <label for="form-address">Cantidad de personas</label>
+                        <input type="text" class="form-control" id="form-address" name="address_offer" placeholder="¿Dónde se encuentra tu espacio?">
+                    </div>
+                    <div class="form-group">
+                        <label for="form-description">Descripcion</label>
+                        <textarea class="form-control" id="form-description" rows="8" name="description_offer" placeholder="Ejemplo: Tengo un espacio en mi empresa de aproximadamente 20m&sup2;, con vista a la carrera 7, actualmente estoy buscando a alguien que lo arriende para desarrollar actividades comerciales."></textarea>
+                    </div>
+                </div>
+                <div class="col" align="center">
+                    <button type="button" class="btn btn-primary" onclick="openModalOffer()">Registra tu espacio</button>
+                </div>
+            </div>
+        </form>
+    </div>        
+</body>
+</html>
